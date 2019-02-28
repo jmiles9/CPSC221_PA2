@@ -130,7 +130,10 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
     gif.addFrame(img);
     int height = img.height();
     int width = img.width();
-    int centreColour = img.getPixel(x, y)->h;
+    HSLAPixel * centrePixel = new HSLAPixel();
+    centrePixel->h = img.getPixel(x, y)->h;
+    centrePixel->s = img.getPixel(x, y)->s;
+    centrePixel->l = img.getPixel(x, y)->l;
 
     vector< pair<int, int> > * visited = new vector< pair<int, int> >;
     OrderingStructure< pair<int, int> > * toVisit = new OrderingStructure< pair<int, int> >;
@@ -170,9 +173,9 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
 
             //if the new x and y coordinates are not outside the img, and tolerance is good:
             if(!(newX >= width || newY >= height || newX < 0 || newY < 0)){
-                int newColour = img.getPixel(newX, newY)->h;
+                HSLAPixel * newColour = img.getPixel(newX, newY);
 
-                if(newColour <= centreColour + tolerance){
+                if(withinTolerance(newColour, centrePixel, tolerance)){
                     pair<int, int> neigh = *(new pair<int, int>(newX, newY));
 
                     //check if neigh has been visited
@@ -192,3 +195,11 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
     gif.addFrame(img);
     return gif;
 } 
+
+bool filler::withinTolerance(HSLAPixel * p, HSLAPixel * c, int tolerance){
+    if (p->h > c->h + tolerance || p->h < c->h - tolerance) return false;
+    if (p->s > c->s + tolerance || p->s < c->s - tolerance) return false;
+    //if (p->l > c->l + tolerance || p->l < c->l - tolerance) return false;
+
+    return true;
+}
