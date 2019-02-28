@@ -125,16 +125,18 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
     cout << "\t in fill" << endl;
     //go through pixels in order, add them to ordering structure.
     // when no neighbours left, remove one from ordering structure 
-    // and repeat
+    // and repeat  //yeeettttt
+    animation gif = *(new animation());
+    gif.addFrame(img);
     int height = img.height();
     int width = img.width();
     int centreColour = img.getPixel(x, y)->h;
 
-    vector< pair<int, int> > visited = *(new vector< pair<int, int> >);
-    OrderingStructure< pair<int, int> > toVisit = *(new OrderingStructure< pair<int, int> >);
+    vector< pair<int, int> > * visited = new vector< pair<int, int> >;
+    OrderingStructure< pair<int, int> > * toVisit = new OrderingStructure< pair<int, int> >;
 
     //this is the vector with the order of the neigbours we will visit
-    vector< pair<int, int> > neighbours = *(new vector< pair<int, int> >);
+    vector< pair<int, int> > neighbours = (*new vector< pair<int, int> >);
     neighbours.push_back(*(new pair<int, int> (1, -1)));
     neighbours.push_back(*(new pair<int, int> (0, -1)));
     neighbours.push_back(*(new pair<int, int> (-1, -1)));
@@ -146,14 +148,18 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
 
 
     //start search
-    toVisit.add(*(new pair<int, int>(x, y)));
+    toVisit->add(*(new pair<int, int>(x, y)));
+    int frameCount = 0;
 
-    while(!toVisit.isEmpty()){
+    while(!toVisit->isEmpty()){
         //get the first pair from toVisit, and add all its neighbours to toVisit
-        pair<int, int> temp = toVisit.remove();
+        pair<int, int> temp = toVisit->remove();
 
         //colouring temp
-        fillColor(temp.first, temp.second); //???????
+        HSLAPixel * p = img.getPixel(temp.first, temp.second);
+        * p = fillColor(temp.first, temp.second); //???????
+        if (frameCount % frameFreq == 0) gif.addFrame(img);
+        frameCount ++;
 
         int currX = temp.first;
         int currY = temp.second;
@@ -171,17 +177,18 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
 
                     //check if neigh has been visited
                     vector< pair<int, int> >::iterator it = 
-                        find(visited.begin(), visited.end(), neigh);
+                        find(visited->begin(), visited->end(), neigh);
 
                     //if it hasn't been visited, add it to visited and toVisit
-                    if(it == visited.end()){ 
-                        visited.push_back(neigh);
-                        toVisit.add(neigh);
+                    if(it == visited->end()){ 
+                        visited->push_back(neigh);
+                        toVisit->add(neigh);
                     }
                 }
             }      
         }
     }
     cout << "\t out of while loop" << endl;
-    //end search
+    gif.addFrame(img);
+    return gif;
 } 
