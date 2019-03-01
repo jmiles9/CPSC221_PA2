@@ -175,7 +175,7 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
             if(!(newX >= width || newY >= height || newX < 0 || newY < 0)){
                 HSLAPixel * newColour = img.getPixel(newX, newY);
 
-                if(withinTolerance(newColour, centrePixel, tolerance)){
+                if(newColour->dist(*centrePixel) <= tolerance){
                     pair<int, int> neigh = *(new pair<int, int>(newX, newY));
 
                     //check if neigh has been visited
@@ -195,11 +195,3 @@ animation filler::fill(PNG& img, int x, int y, colorPicker& fillColor,
     gif.addFrame(img);
     return gif;
 } 
-
-bool filler::withinTolerance(HSLAPixel * p, HSLAPixel * c, int tolerance){
-    if (p->h > c->h + tolerance || p->h < c->h - tolerance) return false;
-    if (p->s > c->s + tolerance || p->s < c->s - tolerance) return false;
-    //if (p->l > c->l + tolerance || p->l < c->l - tolerance) return false;
-
-    return true;
-}

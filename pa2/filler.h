@@ -27,7 +27,6 @@ using namespace std;
  */
 namespace filler
 {
-        bool withinTolerance(HSLAPixel * p, HSLAPixel * c, int tolerance);
         /**
          * Performs a flood fill on the given image using a stripe,
          * employing a depth-first-search approach.
