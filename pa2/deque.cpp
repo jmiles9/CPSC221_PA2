@@ -34,20 +34,26 @@ void Deque<T>::pushR(T const& newItem){
 template <class T>
 T Deque<T>::popL(){
     T temp = data[k1];
+    if (k2 == 1) {
+        data = *(new vector<T>);
+        k1 = 0;
+        k2 = 0;
+        return temp;
+    }
     k1++;
+    k2--;
 
    // if amount of stuff is half the size of vector, resize
-   if(k2-k1 <= k1){
+   if(k2 <= k1){
        vector<T> oldData = data;
        data = *(new vector<T>);
 
-        for(int i = k1; i <= k2+k1; i++){ 
+        for(int i = k1; i < k2+k1; i++){ 
             data.push_back(oldData[i]); 
         }
 
         k1 = 0;
    }
-    k2--;
     return temp;
 }
 /**
@@ -73,7 +79,7 @@ T Deque<T>::popR(){
  */
 template <class T>
 T Deque<T>::peekL(){
-    return data[k1];
+    return data.at(k1);
 }
 
 /**
@@ -96,3 +102,5 @@ template <class T>
 bool Deque<T>::isEmpty() const {
     return k2 == 0;
 }
+
+
