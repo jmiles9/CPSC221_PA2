@@ -15,7 +15,7 @@
 #include "rainbowColorPicker.h" // given as an example
 #include "borderColorPicker.h"
 #include "stripeColorPicker.h"
-#include "customColorPicker.h" //says this is undefined???
+//#include "customColorPicker.h"
 
 #include <utility>
 using namespace cs221util;
@@ -46,8 +46,8 @@ namespace filler
          *  pixels is filled.
          * @return An animation that shows the fill progressing over the image.
          */
-        animation fillCustomDFS(PNG& img, int x, int y, HSLAPixel fillColor,
-                int vertStripeSpacing, int horizStripeSpacing, double tolerance, int frameFreq);
+        //animation fillCustomDFS(PNG& img, int x, int y, HSLAPixel fillColor,
+          //      int vertStripeSpacing, int horizStripeSpacing, double tolerance, int frameFreq);
 
         /**
          * Performs a custom fill on the given image using a stripe,
@@ -67,8 +67,8 @@ namespace filler
          *  pixels is filled.
          * @return An animation that shows the fill progressing over the image.
          */
-        animation fillCustomBFS(PNG& img, int x, int y, HSLAPixel fillColor,
-                int vertStripeSpacing, int horizStripeSpacing, double tolerance, int frameFreq);
+        //animation fillCustomBFS(PNG& img, int x, int y, HSLAPixel fillColor,
+          //      int vertStripeSpacing, int horizStripeSpacing, double tolerance, int frameFreq);
         /**
          * Performs a flood fill on the given image using a stripe,
          * employing a depth-first-search approach.
