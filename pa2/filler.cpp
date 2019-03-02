@@ -5,6 +5,20 @@
  */
 //#include "filler.h"
 
+animation filler::fillCustomDFS(PNG& img, int x, int y, HSLAPixel fillColor,
+                int vertStripeSpacing, int horizStripeSpacing, double tolerance, int frameFreq)
+{
+    customColorPicker a(fillColor, vertStripeSpacing, horizStripeSpacing);
+    return fill<Stack>(img, x, y, a, tolerance, frameFreq);
+}
+
+animation filler::fillCustomBFS(PNG& img, int x, int y, HSLAPixel fillColor,
+                int vertStripeSpacing, int horizStripeSpacing, double tolerance, int frameFreq)
+{
+    customColorPicker a(fillColor, vertStripeSpacing, horizStripeSpacing);
+    return fill<Queue>(img, x, y, a, tolerance, frameFreq);
+}
+
 animation filler::fillStripeDFS(PNG& img, int x, int y, HSLAPixel fillColor,
                                 int stripeSpacing, double tolerance, int frameFreq)
 {

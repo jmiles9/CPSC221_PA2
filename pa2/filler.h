@@ -15,6 +15,7 @@
 #include "rainbowColorPicker.h" // given as an example
 #include "borderColorPicker.h"
 #include "stripeColorPicker.h"
+#include "customColorPicker.h" //says this is undefined???
 
 #include <utility>
 using namespace cs221util;
@@ -27,6 +28,47 @@ using namespace std;
  */
 namespace filler
 {
+        /**
+         * Performs a custom fill on the given image using a stripe,
+         * employing a depth-first-search approach.
+         *
+         * @param img The image to be filled.
+         * @param x The starting x coordinate for the fill.
+         * @param y The starting y coordinate for the fill.
+         * @param fillColor The color the stripes should appear.
+         * @param vertStripeSpacing The width of the vertical stripe spacing.
+         * @param horizStripeSpacing The width of the horizontal stripe spacing
+         * @param tolerance How different colors are allowed to be to still be
+         * included in the fill.
+         * @param frameFreq How frequently to add a frame to the animation, in
+         *  pixels. For instance, if frameFreq == 1, a frame is added when every
+         *  pixel is filled. If frameFreq == 10, a frame is added after every 10
+         *  pixels is filled.
+         * @return An animation that shows the fill progressing over the image.
+         */
+        animation fillCustomDFS(PNG& img, int x, int y, HSLAPixel fillColor,
+                int vertStripeSpacing, int horizStripeSpacing, double tolerance, int frameFreq);
+
+        /**
+         * Performs a custom fill on the given image using a stripe,
+         * employing a depth-first-search approach.
+         *
+         * @param img The image to be filled.
+         * @param x The starting x coordinate for the fill.
+         * @param y The starting y coordinate for the fill.
+         * @param fillColor The color the stripes should appear.
+         * @param vertStripeSpacing The width of the vertical stripe spacing.
+         * @param horizStripeSpacing The width of the horizontal stripe spacing
+         * @param tolerance How different colors are allowed to be to still be
+         * included in the fill.
+         * @param frameFreq How frequently to add a frame to the animation, in
+         *  pixels. For instance, if frameFreq == 1, a frame is added when every
+         *  pixel is filled. If frameFreq == 10, a frame is added after every 10
+         *  pixels is filled.
+         * @return An animation that shows the fill progressing over the image.
+         */
+        animation fillCustomBFS(PNG& img, int x, int y, HSLAPixel fillColor,
+                int vertStripeSpacing, int horizStripeSpacing, double tolerance, int frameFreq);
         /**
          * Performs a flood fill on the given image using a stripe,
          * employing a depth-first-search approach.

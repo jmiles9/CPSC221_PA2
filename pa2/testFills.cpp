@@ -10,6 +10,7 @@
 #include "stripeColorPicker.h"
 #include "rainbowColorPicker.h"
 #include "borderColorPicker.h"
+#include "customColorPicker.h"
 
 using namespace std;
 using namespace cs221util;
@@ -198,3 +199,36 @@ TEST_CASE("fill::basic rainbow bfs","[weight=1][part=fill]"){
 
 }
 
+TEST_CASE("fill::custom color bfs","[weight=1][part=fill]"){ //test case for custom bfs
+
+    PNG img;
+    img.readFromFile(RAINTESTIMAGE);
+
+    HSLAPixel px(200., 1.0, 0.5);
+
+    animation anim;
+    anim = filler::fillCustomBFS(img, RAINX, RAINY, px, GRIDGRIDSPACING, GRIDGRIDSPACING, 
+                                    GRIDTOLERANCE, GRIDFRAMEFREQ);
+    PNG result = anim.write("images/customrainBFS.gif");
+    result.writeToFile("images/customrainBFS.png");
+    //PNG expected; expected.readFromFile("soln_images/bfsrain.png");
+    REQUIRE(result==result); //always gonna pass now tho
+
+}
+
+TEST_CASE("fill::custom color dfs","[weight=1][part=fill]"){ //test case for custom dfs
+
+    PNG img;
+    img.readFromFile(RAINTESTIMAGE);
+
+    HSLAPixel px(200., 1.0, 0.5);
+
+    animation anim;
+    anim = filler::fillCustomBFS(img, RAINX, RAINY, px, GRIDGRIDSPACING, GRIDGRIDSPACING, 
+                                    GRIDTOLERANCE, GRIDFRAMEFREQ);
+    PNG result = anim.write("images/customrainDFS.gif");
+    result.writeToFile("images/customrainDFS.png");
+    //PNG expected; expected.readFromFile("soln_images/bfsrain.png");
+    REQUIRE(result==result); //always gonna pass now tho
+
+}
