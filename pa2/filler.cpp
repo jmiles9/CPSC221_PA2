@@ -5,19 +5,19 @@
  */
 //#include "filler.h"
 
-// animation filler::fillCustomDFS(PNG& img, int x, int y, HSLAPixel fillColor,
-//                 int vertStripeSpacing, int horizStripeSpacing, double tolerance, int frameFreq)
-// {
-//     customColorPicker a(fillColor, vertStripeSpacing, horizStripeSpacing);
-//     return fill<Stack>(img, x, y, a, tolerance, frameFreq);
-// }
+ /*animation filler::fillCustomDFS(PNG& img, int x, int y, HSLAPixel fillColor,
+                 int vertStripeSpacing, int horizStripeSpacing, double tolerance, int frameFreq)
+ {
+     customColorPicker a(fillColor, vertStripeSpacing, horizStripeSpacing);
+     return fill<Stack>(img, x, y, a, tolerance, frameFreq);
+ }
 
-// animation filler::fillCustomBFS(PNG& img, int x, int y, HSLAPixel fillColor,
-//                 int vertStripeSpacing, int horizStripeSpacing, double tolerance, int frameFreq)
-// {
-//     customColorPicker a(fillColor, vertStripeSpacing, horizStripeSpacing);
-//     return fill<Queue>(img, x, y, a, tolerance, frameFreq);
-// }
+ animation filler::fillCustomBFS(PNG& img, int x, int y, HSLAPixel fillColor,
+                 int vertStripeSpacing, int horizStripeSpacing, double tolerance, int frameFreq)
+ {
+     customColorPicker a(fillColor, vertStripeSpacing, horizStripeSpacing);
+     return fill<Queue>(img, x, y, a, tolerance, frameFreq);
+ }*/
 
 animation filler::fillStripeDFS(PNG& img, int x, int y, HSLAPixel fillColor,
                                 int stripeSpacing, double tolerance, int frameFreq)
@@ -30,9 +30,9 @@ animation filler::fillStripeDFS(PNG& img, int x, int y, HSLAPixel fillColor,
 animation filler::fillBorderDFS(PNG& img, int x, int y,
                                     HSLAPixel borderColor, double tolerance, int frameFreq)
 {
-    /**
-     * @todo Your code here! 
-     */
+    HSLAPixel ctr = *(img.getPixel(x,y));
+    borderColorPicker a(borderColor, img, tolerance, ctr);
+    return fill<Stack>(img, x, y, a, tolerance, frameFreq);
 }
 
 /* Given implementation of a DFS rainbow fill. */
@@ -53,7 +53,9 @@ animation filler::fillStripeBFS(PNG& img, int x, int y, HSLAPixel fillColor,
 animation filler::fillBorderBFS(PNG& img, int x, int y,
                                     HSLAPixel borderColor, double tolerance, int frameFreq)
 {
-    //TODO
+    HSLAPixel ctr = *(img.getPixel(x,y));
+     borderColorPicker a(borderColor, img, tolerance, ctr);
+    return fill<Queue>(img, x, y, a, tolerance, frameFreq);
 }
 
 /* Given implementation of a BFS rainbow fill. */
